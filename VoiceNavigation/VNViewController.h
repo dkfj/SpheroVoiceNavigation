@@ -8,8 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "VNTextInputView.h"
+#import <RobotUIKit/RobotUIKit.h>
 
-@interface VNViewController : UIViewController
+@interface VNViewController : UIViewController {
+    BOOL robotOnline;
+    RUICalibrateGestureHandler *calibrateHandler;
+}
 
 @property (nonatomic, retain) IBOutlet UISearchBar *searchBar;
 @property (nonatomic, retain) IBOutlet UIWebView *webView;
@@ -20,5 +24,15 @@
 @property (nonatomic, retain) IBOutlet UIProgressView *timerView;
 
 @property (nonatomic, retain) IBOutlet VNTextInputView *textInputView;
+
+-(void)setupRobotConnection;
+-(void)handleRobotOnline;
+
+//Interface interactions
+-(IBAction)zeroPressed:(id)sender;
+-(IBAction)ninetyPressed:(id)sender;
+-(IBAction)oneEightyPressed:(id)sender;
+-(IBAction)twoSeventyPressed:(id)sender;
+-(IBAction)stopPressed:(id)sender;
 
 @end

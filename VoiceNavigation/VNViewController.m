@@ -8,6 +8,9 @@
 
 #import "VNViewController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "RobotKit/RobotKit.h"
+#import "RobotUIKit/RobotUIKit.h"
+
 
 static const NSTimeInterval VNDictationRepeatInterval = 3.0;
 
@@ -72,6 +75,15 @@ static const NSTimeInterval VNDictationRepeatInterval = 3.0;
     [[NSNotificationCenter defaultCenter] addObserver:self 
                                              selector:@selector(dictationRecognitionFailed:) 
                                                  name:VNDictationRecognitionFailedNotification object:nil];
+    /*Register for application lifecycle notifications so we known when to connect and disconnect from the robot*/
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
+    
+    /*Only start the blinking loop when the view loads*/
+    robotOnline = NO;
+    
+    calibrateHandler = [[RUICalibrateGestureHandler alloc] initWithView:self.view];
+
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -157,6 +169,7 @@ static const NSTimeInterval VNDictationRepeatInterval = 3.0;
 
 - (void)processDictationText:(NSString *)text {
     NSLog(@"processDictationText");
+    NSLog(@"音声認識");
     resultLabel.text = text;
     
     if ([text hasSuffix:[NSString stringWithUTF8String:"を検索"]]) {
@@ -167,11 +180,21 @@ static const NSTimeInterval VNDictationRepeatInterval = 3.0;
         NSURL *searchURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.google.com/m?q=%@&ie=UTF-8&oe=UTF-8&client=safari",
                                                  [text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
         [webView loadRequest:[NSURLRequest requestWithURL:searchURL]];
-    } else if ([text isEqualToString:[NSString stringWithUTF8String:"戻る"]]) {
-        [webView goBack];
-    } else if ([text isEqualToString:[NSString stringWithUTF8String:"進む"]]) {
-        [webView goForward];
+    } else if ([text hasSuffix:[NSString stringWithUTF8String:"止まれ"]]) {
+        NSLog(@"止まれ");
+        [RKRollCommand sendStop];
+        //[webView goBack];
+    } else if ([text hasSuffix:[NSString stringWithUTF8String:"戻れ"]]) {
+        NSLog(@"戻る");
+        [RKRollCommand sendCommandWithHeading:180.0 velocity:0.5];
+        //[webView goBack];
+    } else if ([text hasSuffix:[NSString stringWithUTF8String:"進め"]]) {
+        NSLog(@"進む");
+        [RKRollCommand sendCommandWithHeading:0.0 velocity:0.5];
+        //[webView goForward];
     }
+    [self zeroPressed:NULL];
+    //[RKRollCommand sendCommandWithHeading:0.0 velocity:0.5];
 }
 
 #pragma mark -
@@ -232,5 +255,66 @@ static const NSTimeInterval VNDictationRepeatInterval = 3.0;
     
     [self performSelector:@selector(startDictation) withObject:nil afterDelay:VNDictationRepeatInterval];
 }
+
+
+#pragma mark -
+#pragma mark RobotUIKit
+
+-(void)appWillResignActive:(NSNotification*)notification {
+    /*When the application is entering the background we need to close the connection to the robot*/
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:RKDeviceConnectionOnlineNotification object:nil];
+    [RKRGBLEDOutputCommand sendCommandWithRed:0.0 green:0.0 blue:0.0];
+    [[RKRobotProvider sharedRobotProvider] closeRobotConnection];
+}
+
+-(void)appDidBecomeActive:(NSNotification*)notification {
+    /*When the application becomes active after entering the background we try to connect to the robot*/
+    [self setupRobotConnection];
+}
+
+- (void)handleRobotOnline {
+    /*The robot is now online, we can begin sending commands*/
+    
+    robotOnline = YES;
+}
+
+-(void)setupRobotConnection {
+    /*Try to connect to the robot*/
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRobotOnline) name:RKDeviceConnectionOnlineNotification object:nil];
+    if ([[RKRobotProvider sharedRobotProvider] isRobotUnderControl]) {
+        [[RKRobotProvider sharedRobotProvider] openRobotConnection];        
+    }
+}
+
+#pragma mark -
+#pragma mark Interface interaction
+
+
+-(IBAction)zeroPressed:(id)sender {
+    NSLog(@"zeroPressed");
+    [RKRollCommand sendCommandWithHeading:0.0 velocity:0.5];
+}
+
+-(IBAction)ninetyPressed:(id)sender {
+    NSLog(@"ninetyPressed");
+    [RKRollCommand sendCommandWithHeading:90.0 velocity:0.5];
+}
+
+-(IBAction)oneEightyPressed:(id)sender {
+    NSLog(@"oneEightyPressed");
+    [RKRollCommand sendCommandWithHeading:180.0 velocity:0.5];
+}
+
+-(IBAction)twoSeventyPressed:(id)sender {
+    NSLog(@"twoSeventyPressed");
+    [RKRollCommand sendCommandWithHeading:270.0 velocity:0.5];
+}
+
+-(IBAction)stopPressed:(id)sender {
+    NSLog(@"stopPressed");
+    //The sendStop method sends a roll command with zero velocity and the last heading to make Sphero stop
+    [RKRollCommand sendStop];
+}
+
 
 @end

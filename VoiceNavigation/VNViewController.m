@@ -75,6 +75,7 @@ static const NSTimeInterval VNDictationRepeatInterval = 3.0;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+    NSLog(@"viewDidAppear");
     [super viewDidAppear:animated];
     
     if (![textInputView isFirstResponder]) {
@@ -83,6 +84,7 @@ static const NSTimeInterval VNDictationRepeatInterval = 3.0;
 }
 
 - (void)viewDidUnload {
+    NSLog(@"viewDidUnload");
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [super viewDidUnload];
 }
@@ -90,20 +92,24 @@ static const NSTimeInterval VNDictationRepeatInterval = 3.0;
 #pragma mark -
 
 - (void)resetProgress {
+    NSLog(@"resetProgress");
     count = 0.0f;
     [timerView setProgress:count animated:NO];
 }
 
 - (void)showWaitingServerProcessIndicator {
+    NSLog(@"showWaitingServerProcessIndicator");
     [dictationIndicator startAnimating];
     micImageView.hidden = YES;
 }
 
 - (void)hideWaitingServerProcessIndicator {
+    NSLog(@"hideWaitingServerProcessIndicator");
     [dictationIndicator stopAnimating];
 }
 
 - (void)startDictation {
+    NSLog(@"startDictation");
     [dictationController performSelector:@selector(startDictation)];
     
     displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(onTimer:)];
@@ -115,6 +121,7 @@ static const NSTimeInterval VNDictationRepeatInterval = 3.0;
 }
 
 - (void)stopDictation {
+    NSLog(@"stopDictation");
     [dictationController performSelector:@selector(stopDictation)];
     
     [displayLink invalidate];
@@ -125,6 +132,7 @@ static const NSTimeInterval VNDictationRepeatInterval = 3.0;
 }
 
 - (void)cancelDictation {
+    NSLog(@"cancelDictation");
     [dictationController performSelector:@selector(cancelDictation)];
     
     [displayLink invalidate];
@@ -138,6 +146,7 @@ static const NSTimeInterval VNDictationRepeatInterval = 3.0;
 #pragma mark -
 
 - (NSString *)wholeTestWithDictationResult:(NSArray *)dictationResult {
+    NSLog(@"wholeTestWithDictationResult");
     NSMutableString *text = [NSMutableString string];
     for (UIDictationPhrase *phrase in dictationResult) {
         [text appendString:phrase.text];
@@ -147,13 +156,14 @@ static const NSTimeInterval VNDictationRepeatInterval = 3.0;
 }
 
 - (void)processDictationText:(NSString *)text {
+    NSLog(@"processDictationText");
     resultLabel.text = text;
     
     if ([text hasSuffix:[NSString stringWithUTF8String:"を検索"]]) {
         text = [text substringToIndex:[text length] - 3];
 
         searchBar.text = text; 
-        
+        NSLog(@"text=%@",text);
         NSURL *searchURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.google.com/m?q=%@&ie=UTF-8&oe=UTF-8&client=safari",
                                                  [text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
         [webView loadRequest:[NSURLRequest requestWithURL:searchURL]];
@@ -167,6 +177,7 @@ static const NSTimeInterval VNDictationRepeatInterval = 3.0;
 #pragma mark -
 
 - (void)onTimer:(CADisplayLink *)sender {
+    //NSLog(@"onTimer");
     count += sender.duration / 10.0;
     [timerView setProgress:count animated:YES];
     if (count >= 1.0f) {        
@@ -177,6 +188,7 @@ static const NSTimeInterval VNDictationRepeatInterval = 3.0;
 #pragma mark -
 
 - (void)keyboardWillShow:(NSNotification *)notification {
+    NSLog(@"keyboardWillShow");
     self.dictationController = [NSClassFromString(@"UIDictationController") performSelector:@selector(sharedInstance)];
     if (dictationController) {
         [self startDictation];
@@ -184,19 +196,23 @@ static const NSTimeInterval VNDictationRepeatInterval = 3.0;
 }
 
 - (void)applicationWillEnterForeground:(NSNotification *)notification {
+    NSLog(@"applicationWillEnterForeground");
     [self startDictation];
 }
 
 - (void)applicationDidEnterBackground:(NSNotification *)notification {
+    NSLog(@"applicationDidEnterBackground");
     [self cancelDictation];
 }
 
 #pragma mark -
 
 - (void)dictationRecordingDidEnd:(NSNotification *)notification {
+    NSLog(@"dictationRecordingDidEnd");
 }
 
 - (void)dictationRecognitionSucceeded:(NSNotification *)notification {
+    NSLog(@"dictationRecognitionSucceeded");
     NSDictionary *userInfo = notification.userInfo;
     NSArray *dictationResult = [userInfo objectForKey:VNDictationResultKey];
     
@@ -209,6 +225,7 @@ static const NSTimeInterval VNDictationRepeatInterval = 3.0;
 }
 
 - (void)dictationRecognitionFailed:(NSNotification *)notification {
+    NSLog(@"dictationRecognitionFailed");
     resultLabel.text = @"-";
     
     [self hideWaitingServerProcessIndicator];

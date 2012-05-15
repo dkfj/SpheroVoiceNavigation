@@ -169,18 +169,17 @@ static const NSTimeInterval VNDictationRepeatInterval = 3.0;
 
 - (void)processDictationText:(NSString *)text {
     NSLog(@"processDictationText");
-    NSLog(@"音声認識");
     resultLabel.text = text;
-    
+    //NSLog(@"text=%@",text);
+    NSLog(@"text");
     if ([text hasSuffix:[NSString stringWithUTF8String:"を検索"]]) {
         text = [text substringToIndex:[text length] - 3];
 
         searchBar.text = text; 
-        NSLog(@"text=%@",text);
         NSURL *searchURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.google.com/m?q=%@&ie=UTF-8&oe=UTF-8&client=safari",
                                                  [text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
         [webView loadRequest:[NSURLRequest requestWithURL:searchURL]];
-    } else if ([text hasSuffix:[NSString stringWithUTF8String:"止まれ"]]) {
+    } else if ([text hasSuffix:[NSString stringWithUTF8String:"とまれ"]]) {
         NSLog(@"止まれ");
         [RKRollCommand sendStop];
         //[webView goBack];
@@ -193,7 +192,6 @@ static const NSTimeInterval VNDictationRepeatInterval = 3.0;
         [RKRollCommand sendCommandWithHeading:0.0 velocity:0.5];
         //[webView goForward];
     }
-    [self zeroPressed:NULL];
     //[RKRollCommand sendCommandWithHeading:0.0 velocity:0.5];
 }
 
@@ -201,7 +199,7 @@ static const NSTimeInterval VNDictationRepeatInterval = 3.0;
 
 - (void)onTimer:(CADisplayLink *)sender {
     //NSLog(@"onTimer");
-    count += sender.duration / 10.0;
+    count += sender.duration / 5.0;
     [timerView setProgress:count animated:YES];
     if (count >= 1.0f) {        
         [self stopDictation];

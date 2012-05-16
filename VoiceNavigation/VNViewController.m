@@ -11,6 +11,9 @@
 #import "RobotKit/RobotKit.h"
 #import "RobotUIKit/RobotUIKit.h"
 
+@interface VNViewController (private)
+-(BOOL)hasString:(NSString *)string;
+@end
 
 static const NSTimeInterval VNDictationRepeatInterval = 3.0;
 
@@ -191,8 +194,21 @@ static const NSTimeInterval VNDictationRepeatInterval = 3.0;
         NSLog(@"進む");
         [RKRollCommand sendCommandWithHeading:0.0 velocity:0.5];
         //[webView goForward];
+    } else if ([text hasSuffix:[NSString stringWithUTF8String:"青"]]) {
+        NSLog(@"青");
+        [self changeColorBlue:NULL];
+    } else if ([text hasSuffix:[NSString stringWithUTF8String:"赤"]]) {
+        NSLog(@"赤");
+        [self changeColorRed:NULL];
+    } else if ([text hasSuffix:[NSString stringWithUTF8String:"緑"]]) {
+        NSLog(@"緑");
+        [self changeColorGreen:NULL];
     }
     //[RKRollCommand sendCommandWithHeading:0.0 velocity:0.5];
+}
+
+-(BOOL)hasString:(NSString *)string {
+    return FALSE;
 }
 
 #pragma mark -
@@ -312,6 +328,19 @@ static const NSTimeInterval VNDictationRepeatInterval = 3.0;
     NSLog(@"stopPressed");
     //The sendStop method sends a roll command with zero velocity and the last heading to make Sphero stop
     [RKRollCommand sendStop];
+}
+
+-(IBAction)changeColorRed:(id)sender {
+    NSLog(@"changeColorRed");
+    [RKRGBLEDOutputCommand sendCommandWithRed:1.0 green:0.0 blue:0.0];
+}
+-(IBAction)changeColorGreen:(id)sender {
+    NSLog(@"changeColorGreen");
+    [RKRGBLEDOutputCommand sendCommandWithRed:0.0 green:1.0 blue:0.0];
+}
+-(IBAction)changeColorBlue:(id)sender {
+    NSLog(@"changeColorBlue");
+    [RKRGBLEDOutputCommand sendCommandWithRed:0.0 green:0.0 blue:1.0];
 }
 
 

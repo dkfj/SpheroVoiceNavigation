@@ -34,5 +34,9 @@
 -(IBAction)oneEightyPressed:(id)sender;
 -(IBAction)twoSeventyPressed:(id)sender;
 -(IBAction)stopPressed:(id)sender;
+//Interface color
+-(IBAction)changeColorRed:(id)sender;
+-(IBAction)changeColorGreen:(id)sender;
+-(IBAction)changeColorBlue:(id)sender;
 
 @end

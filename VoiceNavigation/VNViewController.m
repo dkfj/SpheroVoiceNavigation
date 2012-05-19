@@ -12,7 +12,7 @@
 #import "RobotUIKit/RobotUIKit.h"
 
 @interface VNViewController (private)
--(BOOL)hasString:(NSString *)string;
+-(BOOL)hasString:(NSString *)string Search:(NSString *)searchText;
 @end
 
 static const NSTimeInterval VNDictationRepeatInterval = 3.0;
@@ -182,32 +182,39 @@ static const NSTimeInterval VNDictationRepeatInterval = 3.0;
         NSURL *searchURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.google.com/m?q=%@&ie=UTF-8&oe=UTF-8&client=safari",
                                                  [text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
         [webView loadRequest:[NSURLRequest requestWithURL:searchURL]];
-    } else if ([text hasSuffix:[NSString stringWithUTF8String:"とまれ"]]) {
+    } else if ([self hasString:text Search:@"とまれ"]) {
         NSLog(@"止まれ");
         [RKRollCommand sendStop];
         //[webView goBack];
-    } else if ([text hasSuffix:[NSString stringWithUTF8String:"戻れ"]]) {
+    } else if ([self hasString:text Search:@"戻れ"]) {
         NSLog(@"戻る");
         [RKRollCommand sendCommandWithHeading:180.0 velocity:0.5];
         //[webView goBack];
-    } else if ([text hasSuffix:[NSString stringWithUTF8String:"進め"]]) {
+    } else if ([self hasString:text Search:@"進め"]) {
         NSLog(@"進む");
         [RKRollCommand sendCommandWithHeading:0.0 velocity:0.5];
         //[webView goForward];
-    } else if ([text hasSuffix:[NSString stringWithUTF8String:"青"]]) {
+    } else if ([self hasString:text Search:@"お前の血は何色だ"]) {
+        NSLog(@"お前の血は何色だ");
+        [self changeColorRed:NULL];
+    } else if ([self hasString:text Search:@"青"]) {
         NSLog(@"青");
         [self changeColorBlue:NULL];
-    } else if ([text hasSuffix:[NSString stringWithUTF8String:"赤"]]) {
+    } else if ([self hasString:text Search:@"赤"]) {
         NSLog(@"赤");
         [self changeColorRed:NULL];
-    } else if ([text hasSuffix:[NSString stringWithUTF8String:"緑"]]) {
+    } else if ([self hasString:text Search:@"緑"]) {
         NSLog(@"緑");
         [self changeColorGreen:NULL];
     }
     //[RKRollCommand sendCommandWithHeading:0.0 velocity:0.5];
 }
 
--(BOOL)hasString:(NSString *)string {
+-(BOOL)hasString:(NSString *)string Search:(NSString *)searchText{
+    NSRange range = [string rangeOfString:searchText];
+    if (range.location != NSNotFound) {
+        return TRUE;
+    }
     return FALSE;
 }
 
@@ -215,7 +222,7 @@ static const NSTimeInterval VNDictationRepeatInterval = 3.0;
 
 - (void)onTimer:(CADisplayLink *)sender {
     //NSLog(@"onTimer");
-    count += sender.duration / 5.0;
+    count += sender.duration / 3.0;
     [timerView setProgress:count animated:YES];
     if (count >= 1.0f) {        
         [self stopDictation];
@@ -328,6 +335,10 @@ static const NSTimeInterval VNDictationRepeatInterval = 3.0;
     NSLog(@"stopPressed");
     //The sendStop method sends a roll command with zero velocity and the last heading to make Sphero stop
     [RKRollCommand sendStop];
+}
+
+-(IBAction)turn:(id)sender {
+    NSLog(@"turn");
 }
 
 -(IBAction)changeColorRed:(id)sender {

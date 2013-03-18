@@ -228,4 +228,8 @@ NSString * const VNDictationResultKey = @"VNDictationResultKey";
     [[NSNotificationCenter defaultCenter] postNotificationName:VNDictationRecognitionFailedNotification object:self];
 }
 
+- (NSArray *)selectionRectsForRange:(UITextRange *)range {
+    return Nil;
+}
+
 @end

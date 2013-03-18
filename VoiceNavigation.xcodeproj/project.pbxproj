@@ -24,12 +24,13 @@
 		149E8A07150A45AB00AB1E10 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 149E8A05150A45AB00AB1E10 /* MainStoryboard_iPad.storyboard */; };
 		149E8A0A150A45AB00AB1E10 /* VNViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 149E8A09150A45AB00AB1E10 /* VNViewController.m */; };
 		14DD86DF150A7197003098B3 /* VNTextInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14DD86DE150A7197003098B3 /* VNTextInputView.m */; };
-		3C699B881562A87E00589CE1 /* RobotKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C699B861562A87E00589CE1 /* RobotKit.framework */; };
-		3C699B891562A87E00589CE1 /* RobotUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C699B871562A87E00589CE1 /* RobotUIKit.framework */; };
 		3C699B8C1562A98D00589CE1 /* RobotUIKit.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3C699B8B1562A98D00589CE1 /* RobotUIKit.bundle */; };
 		3C699B8E1562AD9F00589CE1 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C699B8D1562AD9F00589CE1 /* GameKit.framework */; };
 		3C699B901562ADAE00589CE1 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C699B8F1562ADAE00589CE1 /* ExternalAccessory.framework */; };
 		3C699B921562ADBA00589CE1 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C699B911562ADBA00589CE1 /* CoreMotion.framework */; };
+		3C76681F16F5BC4600EC5F90 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C76681E16F5BC4600EC5F90 /* Default-568h@2x.png */; };
+		3C76682116F76A4C00EC5F90 /* RobotKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C76682016F76A4C00EC5F90 /* RobotKit.framework */; };
+		3C76682316F76A6800EC5F90 /* RobotUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C76682216F76A6800EC5F90 /* RobotUIKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,12 +57,13 @@
 		149E8A09150A45AB00AB1E10 /* VNViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VNViewController.m; sourceTree = "<group>"; };
 		14DD86DD150A7197003098B3 /* VNTextInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VNTextInputView.h; sourceTree = "<group>"; };
 		14DD86DE150A7197003098B3 /* VNTextInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VNTextInputView.m; sourceTree = "<group>"; };
-		3C699B861562A87E00589CE1 /* RobotKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RobotKit.framework; path = VoiceNavigation/Frameworks/RobotKit.framework; sourceTree = "<group>"; };
-		3C699B871562A87E00589CE1 /* RobotUIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RobotUIKit.framework; path = VoiceNavigation/Frameworks/RobotUIKit.framework; sourceTree = "<group>"; };
 		3C699B8B1562A98D00589CE1 /* RobotUIKit.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = RobotUIKit.bundle; path = VoiceNavigation/RobotUIKit.bundle; sourceTree = "<group>"; };
 		3C699B8D1562AD9F00589CE1 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		3C699B8F1562ADAE00589CE1 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		3C699B911562ADBA00589CE1 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		3C76681E16F5BC4600EC5F90 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		3C76682016F76A4C00EC5F90 /* RobotKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RobotKit.framework; path = "../library/Sphero-iOS-SDK/frameworks/RobotKit.framework"; sourceTree = "<group>"; };
+		3C76682216F76A6800EC5F90 /* RobotUIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RobotUIKit.framework; path = "../library/Sphero-iOS-SDK/frameworks/RobotUIKit.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C76682316F76A6800EC5F90 /* RobotUIKit.framework in Frameworks */,
+				3C76682116F76A4C00EC5F90 /* RobotKit.framework in Frameworks */,
 				149E89F1150A45AA00AB1E10 /* UIKit.framework in Frameworks */,
 				149E89F3150A45AA00AB1E10 /* Foundation.framework in Frameworks */,
 				149E89F5150A45AA00AB1E10 /* CoreGraphics.framework in Frameworks */,
@@ -76,8 +80,6 @@
 				3C699B8E1562AD9F00589CE1 /* GameKit.framework in Frameworks */,
 				3C699B901562ADAE00589CE1 /* ExternalAccessory.framework in Frameworks */,
 				14142067150A865D00E5216F /* QuartzCore.framework in Frameworks */,
-				3C699B881562A87E00589CE1 /* RobotKit.framework in Frameworks */,
-				3C699B891562A87E00589CE1 /* RobotUIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,9 +102,7 @@
 		149E89E1150A45A900AB1E10 = {
 			isa = PBXGroup;
 			children = (
-				3C699B911562ADBA00589CE1 /* CoreMotion.framework */,
-				3C699B8F1562ADAE00589CE1 /* ExternalAccessory.framework */,
-				3C699B8D1562AD9F00589CE1 /* GameKit.framework */,
+				3C76681E16F5BC4600EC5F90 /* Default-568h@2x.png */,
 				3C699B8B1562A98D00589CE1 /* RobotUIKit.bundle */,
 				149E89F6150A45AA00AB1E10 /* VoiceNavigation */,
 				149E89EF150A45AA00AB1E10 /* Frameworks */,
@@ -121,8 +121,11 @@
 		149E89EF150A45AA00AB1E10 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3C699B861562A87E00589CE1 /* RobotKit.framework */,
-				3C699B871562A87E00589CE1 /* RobotUIKit.framework */,
+				3C699B911562ADBA00589CE1 /* CoreMotion.framework */,
+				3C699B8F1562ADAE00589CE1 /* ExternalAccessory.framework */,
+				3C699B8D1562AD9F00589CE1 /* GameKit.framework */,
+				3C76682216F76A6800EC5F90 /* RobotUIKit.framework */,
+				3C76682016F76A4C00EC5F90 /* RobotKit.framework */,
 				149E89F0150A45AA00AB1E10 /* UIKit.framework */,
 				149E89F2150A45AA00AB1E10 /* Foundation.framework */,
 				149E89F4150A45AA00AB1E10 /* CoreGraphics.framework */,
@@ -221,6 +224,7 @@
 				145CF6CC150AA2320080E7CB /* Default.png in Resources */,
 				145CF6CD150AA2320080E7CB /* Default@2x.png in Resources */,
 				3C699B8C1562A98D00589CE1 /* RobotUIKit.bundle in Resources */,
+				3C76681F16F5BC4600EC5F90 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,7 +292,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				MACH_O_TYPE = mh_execute;
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -314,7 +318,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				MACH_O_TYPE = mh_execute;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = (
@@ -334,7 +338,7 @@
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/VoiceNavigation/Frameworks\"",
+					"\"$(SRCROOT)/../library/Sphero-iOS-SDK/frameworks\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VoiceNavigation/VoiceNavigation-Prefix.pch";
@@ -350,6 +354,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/VoiceNavigation/Frameworks\"",
+					"\"$(SRCROOT)/../library/Sphero-iOS-SDK/frameworks\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VoiceNavigation/VoiceNavigation-Prefix.pch";

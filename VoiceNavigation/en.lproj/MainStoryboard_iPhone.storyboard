@@ -182,6 +182,7 @@
                 <relationship kind="action" name="changeColorRed:"/>
                 <relationship kind="action" name="ninetyPressed:"/>
                 <relationship kind="action" name="oneEightyPressed:"/>
+                <relationship kind="action" name="startVoiceNavigation:"/>
                 <relationship kind="action" name="stopPressed:"/>
                 <relationship kind="action" name="turn:"/>
                 <relationship kind="action" name="twoSeventyPressed:"/>

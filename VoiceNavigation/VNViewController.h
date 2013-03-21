@@ -38,5 +38,4 @@
 -(IBAction)changeColorRed:(id)sender;
 -(IBAction)changeColorGreen:(id)sender;
 -(IBAction)changeColorBlue:(id)sender;
-
 @end

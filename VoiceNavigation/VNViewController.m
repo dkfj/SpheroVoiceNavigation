@@ -56,6 +56,7 @@ static const NSTimeInterval VNDictationRepeatInterval = 3.0;
 }
 
 - (void)viewDidLoad {
+    NSLog(@"viewDidLoad");
     [super viewDidLoad];
 
     dictationView.layer.cornerRadius = 8.0f;
@@ -81,7 +82,7 @@ static const NSTimeInterval VNDictationRepeatInterval = 3.0;
     /*Register for application lifecycle notifications so we known when to connect and disconnect from the robot*/
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
-    
+    [self keyboardWillShow:nil];
     /*Only start the blinking loop when the view loads*/
     robotOnline = NO;
     
@@ -182,7 +183,7 @@ static const NSTimeInterval VNDictationRepeatInterval = 3.0;
         NSURL *searchURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.google.com/m?q=%@&ie=UTF-8&oe=UTF-8&client=safari",
                                                  [text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
         [webView loadRequest:[NSURLRequest requestWithURL:searchURL]];
-    } else if ([self hasString:text Search:@"とまれ"]) {
+    } else if ([self hasString:text Search:@"とまれ"] || [self hasString:text Search:@"止"]) {
         NSLog(@"止まれ");
         [RKRollCommand sendStop];
         //[webView goBack];
@@ -200,7 +201,7 @@ static const NSTimeInterval VNDictationRepeatInterval = 3.0;
     } else if ([self hasString:text Search:@"青"]) {
         NSLog(@"青");
         [self changeColorBlue:NULL];
-    } else if ([self hasString:text Search:@"赤"]) {
+    } else if ([self hasString:text Search:@"赤"] || [self hasString:text Search:@"あか"]) {
         NSLog(@"赤");
         [self changeColorRed:NULL];
     } else if ([self hasString:text Search:@"緑"]) {
